@@ -6,7 +6,7 @@
 /*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 18:28:14 by fnascime          #+#    #+#             */
-/*   Updated: 2023/12/08 11:25:58 by fnascime         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:24:34 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ void	send_char(int pid, char c)
 		usleep(600);
 		i++;
 	}
+}
+
+void	mhandler(int signum)
+{
+	if (signum == SIGUSR1)
+		ft_printf("Mensagem recebida com sucesso!\n");
 }
 
 void	send_message(int pid, char *str)
@@ -63,6 +69,7 @@ int	main(int argc, char **argv)
 		ft_printf("ERRO: argumentos inválidos\n");
 		return (1);
 	}
+	signal(SIGUSR1, &mhandler);
 	send_message(pid, str);
 	return (0);
 }
