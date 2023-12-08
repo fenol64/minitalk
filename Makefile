@@ -24,9 +24,9 @@ bonus: $(BONUS_OBJS)
 	cc -Wall -Wextra -Werror -o server server_bonus.o libft/libft.a
 	cc -Wall -Wextra -Werror -o client client_bonus.o libft/libft.a
 
-fclean:	clean
+fclean:	clean $(OBJS) $(BONUS_OBJS)
 	make -C libft fclean
-	rm -rf $(NAME)
+	rm -rf $(NAME) $(OBJS) $(BONUS_OBJS)
 
 eclean: fclean
 	rm -rf server client
