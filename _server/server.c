@@ -6,7 +6,7 @@
 /*   By: fnascime <fnascime@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:24:22 by fnascime          #+#    #+#             */
-/*   Updated: 2023/12/08 01:22:26 by fnascime         ###   ########.fr       */
+/*   Updated: 2023/12/08 01:38:01 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,22 @@
 
 void	handler(int signum)
 {
-	static int i = 0;
-	static char c = 0;
+	static int	i = 0;
+	static char	c = 0;
 
 	if (signum == SIGUSR1)
-        c |= (0 << i);
-    else if (signum == SIGUSR2)
-        c |= (1 << i);
-    i++;
-
-    if (i == 8)
-    {
-        ft_printf("%c", c);
-        if (c == '\0')
-        {
-            ft_printf("\n");
-        }
-        i = 0;
-        c = 0;
-    }
+		c |= (0 << i);
+	else if (signum == SIGUSR2)
+		c |= (1 << i);
+	i++;
+	if (i == 8)
+	{
+		ft_printf("%c", c);
+		if (c == '\0')
+			ft_printf("\n");
+		i = 0;
+		c = 0;
+	}
 }
 
 int	main(void)
