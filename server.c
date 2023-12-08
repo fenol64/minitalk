@@ -6,7 +6,7 @@
 /*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:24:22 by fnascime          #+#    #+#             */
-/*   Updated: 2023/12/08 11:14:18 by fnascime         ###   ########.fr       */
+/*   Updated: 2023/12/08 11:24:30 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	main(void)
 	sa = malloc(sizeof(struct sigaction));
 	sa->sa_sigaction = handler;
 	sa->sa_flags = SA_SIGINFO;
-
 	pid = getpid();
 	if (pid < 0)
 	{
