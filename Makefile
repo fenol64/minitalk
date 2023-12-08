@@ -1,22 +1,27 @@
 NAME = minitalk.a
 
+SRCS = server.c client.c
+OBJS = $(SRCS:.c=.o)
+
+.c.o:
+	cc -Wall -Wextra -Werror -c $< -o $(<:.c=.o)
+
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(OBJS)
 	make -C libft
-	make -C _server
-	make -C _client
-	echo "Compiling minitalk..."
+	cc -Wall -Wextra -Werror -o server server.o libft/libft.a
+	cc -Wall -Wextra -Werror -o client client.o libft/libft.a
 
 clean:
 	make -C libft clean
-	make -C _server clean
-	make -C _client clean
+	rm -rf $(OBJS)
 
 fclean:	clean
 	make -C libft fclean
-	make -C _server fclean
-	make -C _client fclean
-	rm -f ./server ./client
+	rm -rf $(NAME)
+
+eclean: fclean
+	rm -rf server client
 
 re: fclean all

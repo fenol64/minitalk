@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnascime <fnascime@student.42.rio>         +#+  +:+       +#+        */
+/*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 18:28:14 by fnascime          #+#    #+#             */
-/*   Updated: 2023/12/08 01:20:00 by fnascime         ###   ########.fr       */
+/*   Updated: 2023/12/08 11:14:11 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "client.h"
+#include <unistd.h>
+#include <signal.h>
+#include <stdlib.h>
+#include "libft/includes/libft.h"
 
 void	send_char(int pid, char c)
 {

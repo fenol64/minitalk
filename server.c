@@ -3,20 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnascime <fnascime@student.42.rio>         +#+  +:+       +#+        */
+/*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:24:22 by fnascime          #+#    #+#             */
-/*   Updated: 2023/12/08 01:38:01 by fnascime         ###   ########.fr       */
+/*   Updated: 2023/12/08 11:14:18 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "server.h"
+#include <unistd.h>
+#include <signal.h>
+#include <stdlib.h>
+#include "libft/includes/libft.h"
 
-void	handler(int signum)
+void	handler(int signum, siginfo_t *siginfo, void *context)
 {
 	static int	i = 0;
 	static char	c = 0;
 
+	(void)context;
 	if (signum == SIGUSR1)
 		c |= (0 << i);
 	else if (signum == SIGUSR2)
@@ -26,7 +30,10 @@ void	handler(int signum)
 	{
 		ft_printf("%c", c);
 		if (c == '\0')
+		{
+			kill(siginfo->si_pid, SIGUSR1);
 			ft_printf("\n");
+		}
 		i = 0;
 		c = 0;
 	}
@@ -38,7 +45,9 @@ int	main(void)
 	struct sigaction	*sa;
 
 	sa = malloc(sizeof(struct sigaction));
-	sa->sa_handler = handler;
+	sa->sa_sigaction = handler;
+	sa->sa_flags = SA_SIGINFO;
+
 	pid = getpid();
 	if (pid < 0)
 	{
