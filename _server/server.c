@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnascime <fnascime@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:24:22 by fnascime          #+#    #+#             */
-/*   Updated: 2023/12/07 20:57:51 by fnascime         ###   ########.fr       */
+/*   Updated: 2023/12/08 01:22:26 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,22 @@ void	handler(int signum)
 	static int i = 0;
 	static char c = 0;
 
-	if (signum == SIGUSR1) // 0
-	{
-		c = c | (1 << i);
-		if (++i == 8)
-		{
-			ft_printf("%c", c);
-			i = 0;
-			c = 0;
-		}
-	}
-	else if (signum == SIGUSR2) // 1
-	{
-		c = c | (0 << i);
-		if (++i == 8)
-		{
-			ft_printf("%c", c);
-			i = 0;
-			c = 0;
-		}
-	}
+	if (signum == SIGUSR1)
+        c |= (0 << i);
+    else if (signum == SIGUSR2)
+        c |= (1 << i);
+    i++;
+
+    if (i == 8)
+    {
+        ft_printf("%c", c);
+        if (c == '\0')
+        {
+            ft_printf("\n");
+        }
+        i = 0;
+        c = 0;
+    }
 }
 
 int	main(void)

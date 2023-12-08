@@ -3,55 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnascime <fnascime@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 18:28:14 by fnascime          #+#    #+#             */
-/*   Updated: 2023/12/07 20:46:30 by fnascime         ###   ########.fr       */
+/*   Updated: 2023/12/08 01:20:00 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
 
-char	*get_current_bits(char c)
+void	send_char(int pid, char c)
 {
 	int		i;
-	char	*bin;
+	int		bit;
 
 	i = 0;
-	bin = malloc(sizeof(char) * 8);
 	while (i < 8)
 	{
-		if (c & (1 << i))
-			bin[i] = '1';
-		else
-			bin[i] = '0';
+		bit = (c >> i) & 1;
+		if (bit == 0)
+			kill(pid, SIGUSR1);
+		else if (bit == 1)
+			kill(pid, SIGUSR2);
+		usleep(600);
 		i++;
 	}
-	return (bin);
 }
 
 void	send_message(int pid, char *str)
 {
 	int		i;
-	int		j;
-	char	*bin;
 
 	i = 0;
 	while (str[i])
 	{
-		j = 7;
-		bin = get_current_bits(str[i]);
-		while (j >= 0)
-		{
-			if (bin[j] == '0')
-				kill(pid, SIGUSR1);
-			else if (bin[j] == '1')
-				kill(pid, SIGUSR2);
-			usleep(100);
-			j--;
-		}
+		send_char(pid, str[i]);
 		i++;
 	}
+	send_char(pid, '\0');
 }
 
 int	main(int argc, char **argv)
@@ -61,7 +50,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 3)
 	{
-		ft_printf("ERRO: Número de argumentos inválido\n");
+		ft_printf("Uso: ./client [PID] [mensagem]\n");
 		return (1);
 	}
 	pid = ft_atoi(argv[1]);
