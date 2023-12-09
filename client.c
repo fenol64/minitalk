@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnascime <fnascime@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 18:28:14 by fnascime          #+#    #+#             */
-/*   Updated: 2023/12/08 16:29:15 by fnascime         ###   ########.fr       */
+/*   Updated: 2023/12/09 12:35:02 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
-#include "libft/includes/libft.h"
+#include "minitalk.h"
 
 void	send_char(int pid, char c)
 {

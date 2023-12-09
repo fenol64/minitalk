@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnascime <fnascime@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:24:22 by fnascime          #+#    #+#             */
-/*   Updated: 2023/12/08 16:28:01 by fnascime         ###   ########.fr       */
+/*   Updated: 2023/12/09 12:36:28 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
-#include "libft/includes/libft.h"
+#include "minitalk_bonus.h"
 
 void	handler(int signum, siginfo_t *siginfo, void *context)
 {
