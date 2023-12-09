@@ -10,25 +10,31 @@ BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+libft/libft.a:
 	make -C libft
+
+server: server.o
 	cc -Wall -Wextra -Werror -o server server.o libft/libft.a
+
+client: client.o
 	cc -Wall -Wextra -Werror -o client client.o libft/libft.a
+
+server_bonus: server_bonus.o
+	cc -Wall -Wextra -Werror -o server_bonus server_bonus.o libft/libft.a
+
+client_bonus: client_bonus.o
+	cc -Wall -Wextra -Werror -o client_bonus client_bonus.o libft/libft.a
+
+$(NAME): $(OBJS) libft/libft.a server client
+
+bonus: $(BONUS_OBJS) libft/libft.a server_bonus client_bonus
 
 clean:
 	make -C libft clean
 	rm -rf $(OBJS)
 
-bonus: $(BONUS_OBJS)
-	make -C libft
-	cc -Wall -Wextra -Werror -o server server_bonus.o libft/libft.a
-	cc -Wall -Wextra -Werror -o client client_bonus.o libft/libft.a
-
-fclean:	clean $(OBJS) $(BONUS_OBJS)
+fclean:	clean
 	make -C libft fclean
-	rm -rf $(NAME) $(OBJS) $(BONUS_OBJS)
-
-eclean: fclean
-	rm -rf server client
+	rm -rf $(NAME) $(OBJS) $(BONUS_OBJS) server client server_bonus client_bonus
 
 re: fclean all
